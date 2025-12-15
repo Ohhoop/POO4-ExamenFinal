@@ -11,6 +11,9 @@ var connectionString = builder.Configuration.GetConnectionString("CreditImpotMVC
 var dbPath = Path.Combine(builder.Environment.ContentRootPath, "CreditImpot.MVC.db");
 connectionString = $"Data Source={dbPath}";
 
+Console.WriteLine($"=== CHEMIN DE LA BASE DE DONNEES: {dbPath} ===");
+Console.WriteLine($"=== FICHIER EXISTE: {File.Exists(dbPath)} ===");
+
 builder.Services.AddDbContext<CreditImpotMVCContext>(options =>
     options.UseSqlite(connectionString));
 
