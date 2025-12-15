@@ -1,0 +1,46 @@
+using CreditImpot.MVC.Interface;
+using CreditImpot.MVC.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using CreditImpot.MVC.Data;
+
+var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("CreditImpotMVCContextConnection") ?? throw new InvalidOperationException("Connection string 'CreditImpotMVCContextConnection' not found.");
+
+builder.Services.AddDbContext<CreditImpotMVCContext>(options =>
+    options.UseSqlite(connectionString));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<CreditImpotMVCContext>();
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+string? uriString = builder.Configuration.GetValue<string>("UrlAPI") ?? throw new Exception("Config missing: UrlAPI");
+
+builder.Services.AddHttpClient<IWeatherForecastService, WeatherForecastServiceProxy>(client => client.BaseAddress = new Uri(uriString));
+builder.Services.AddHttpClient<IFraisGardeService, FraisGardeServiceProxy>(client => client.BaseAddress = new Uri(uriString));
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
+app.UseAuthentication();;
+
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
+app.Run();

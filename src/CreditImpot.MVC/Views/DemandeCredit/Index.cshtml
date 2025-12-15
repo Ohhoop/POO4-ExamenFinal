@@ -1,0 +1,78 @@
+﻿@model IEnumerable<DemandeCreditFraisGarde>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Crédit d'impôt pour frais de garde d'enfants</h1>
+
+<p>
+    <a asp-action="Create">Nouvelle demande</a>
+</p>
+
+<div class="row">
+    <div class="col-md-4">
+    <form asp-action="Index" method="get">
+        <div class="form-group">
+          <label class="control-label">Filtre selon le NAS</label>
+          <input class="form-control" type="text" id="NAS" name="NAS" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Filtrer" class="btn btn-primary" />
+        </div>
+    </form>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NAS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomPrenomEnfant)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateDemande)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RevenuFamilial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontantFraisPaye)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreditImpot)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NAS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomPrenomEnfant)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateDemande)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RevenuFamilial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontantFraisPaye)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreditImpot)
+            </td>
+            <td>
+                    @Html.ActionLink("Supprimer", "Supprimer", new {  id=item.ID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

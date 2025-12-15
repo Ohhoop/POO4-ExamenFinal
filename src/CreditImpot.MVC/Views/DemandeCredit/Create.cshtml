@@ -1,0 +1,63 @@
+﻿@model CreditImpot.MVC.Models.DemandeCredit
+
+@{
+    ViewData["Title"] = "Demande de crédit";
+}
+
+
+<h4>Nouvelle demande de crédit d'impot pour frais de garde</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="NAS" class="control-label"></label>
+                <input asp-for="NAS" class="form-control" />
+                <span asp-validation-for="NAS" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NomEnfant" class="control-label"></label>
+                <input asp-for="NomEnfant" class="form-control" />
+                <span asp-validation-for="NomEnfant" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="EstAtteintDeficience" /> @Html.DisplayNameFor(model => model.EstAtteintDeficience)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateNaissance" class="control-label"></label>
+                <input asp-for="DateNaissance" class="form-control" />
+                <span asp-validation-for="DateNaissance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalaireMere" class="control-label"></label>
+                <input asp-for="SalaireMere" class="form-control" />
+                <span asp-validation-for="SalaireMere" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SalairePere" class="control-label"></label>
+                <input asp-for="SalairePere" class="form-control" />
+                <span asp-validation-for="SalairePere" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MontantFrais" class="control-label"></label>
+                <input asp-for="MontantFrais" class="form-control" />
+                <span asp-validation-for="MontantFrais" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Envoyer" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Liste des demandes</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

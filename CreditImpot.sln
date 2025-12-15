@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33103.201
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreditImpot.API", "src\CreditImpot.API\CreditImpot.API.csproj", "{7D0D5364-E63C-4EE4-910F-B22CD2C40797}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreditImpot.MVC", "src\CreditImpot.MVC\CreditImpot.MVC.csproj", "{A2441F73-5F19-483F-82DD-3736013CA25E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{933CEE18-2B5D-4EAA-8BE9-5F7DD7632145}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{57CE159C-FF0B-4D3A-8494-C66DF04D340C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditImpot.API.Tests", "tests\CreditImpot.API.Tests\CreditImpot.API.Tests.csproj", "{AA290E74-A30F-4600-832E-CD713EEFC896}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditImpot.MVC.Tests", "tests\CreditImpot.MVC.Tests\CreditImpot.MVC.Tests.csproj", "{96A983B2-8498-406F-B97C-0C3A5FAA08CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7D0D5364-E63C-4EE4-910F-B22CD2C40797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D0D5364-E63C-4EE4-910F-B22CD2C40797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D0D5364-E63C-4EE4-910F-B22CD2C40797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D0D5364-E63C-4EE4-910F-B22CD2C40797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2441F73-5F19-483F-82DD-3736013CA25E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2441F73-5F19-483F-82DD-3736013CA25E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2441F73-5F19-483F-82DD-3736013CA25E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2441F73-5F19-483F-82DD-3736013CA25E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA290E74-A30F-4600-832E-CD713EEFC896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA290E74-A30F-4600-832E-CD713EEFC896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA290E74-A30F-4600-832E-CD713EEFC896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA290E74-A30F-4600-832E-CD713EEFC896}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96A983B2-8498-406F-B97C-0C3A5FAA08CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96A983B2-8498-406F-B97C-0C3A5FAA08CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96A983B2-8498-406F-B97C-0C3A5FAA08CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96A983B2-8498-406F-B97C-0C3A5FAA08CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7D0D5364-E63C-4EE4-910F-B22CD2C40797} = {933CEE18-2B5D-4EAA-8BE9-5F7DD7632145}
+		{A2441F73-5F19-483F-82DD-3736013CA25E} = {933CEE18-2B5D-4EAA-8BE9-5F7DD7632145}
+		{AA290E74-A30F-4600-832E-CD713EEFC896} = {57CE159C-FF0B-4D3A-8494-C66DF04D340C}
+		{96A983B2-8498-406F-B97C-0C3A5FAA08CE} = {57CE159C-FF0B-4D3A-8494-C66DF04D340C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {80E1CEEA-A467-45BC-986D-1C40138E3171}
+	EndGlobalSection
+EndGlobal
