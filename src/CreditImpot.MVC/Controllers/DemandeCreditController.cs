@@ -13,11 +13,12 @@ namespace CreditImpot.MVC.Controllers
     {
         private readonly IFraisGardeService _DemandeCreditProxy;
         private readonly IDataProtector _dataProtector;
+        private const string NAS_PROTECTION_PURPOSE = "NASProtection";
 
         public DemandeCreditController(IFraisGardeService demandeCreditProxy, IDataProtectionProvider dataProtectionProvider)
         {
             _DemandeCreditProxy = demandeCreditProxy;
-            _dataProtector = dataProtectionProvider.CreateProtector("NASProtection");
+            _dataProtector = dataProtectionProvider.CreateProtector(NAS_PROTECTION_PURPOSE);
         }
 
 

@@ -17,12 +17,13 @@ namespace CreditImpot.API.Controllers
         private readonly CreditImpotContext _context;
         private readonly ICalculCredit _calculCredit;
         private readonly IDataProtector _dataProtector;
+        private const string NAS_PROTECTION_PURPOSE = "NASProtection";
 
         public FraisGardeController(CreditImpotContext context, ICalculCredit calculCredit, IDataProtectionProvider dataProtectionProvider)
         {
             _context = context;
             _calculCredit = calculCredit;
-            _dataProtector = dataProtectionProvider.CreateProtector("NASProtection");
+            _dataProtector = dataProtectionProvider.CreateProtector(NAS_PROTECTION_PURPOSE);
         }
 
         // GET: api/<FraisGardeController>
