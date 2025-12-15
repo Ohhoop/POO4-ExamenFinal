@@ -34,7 +34,7 @@ namespace CreditImpot.MVC.Controllers
 
         // Get: DemandeCreditController/Create
         [HttpGet]
-        [Authorize(Roles = "Utilisateur,Gestionnaire,Administrateur")]
+        [Authorize(Roles = "Gestionnaire,Administrateur")]
         public ActionResult Create()
         {
             return View();
@@ -43,7 +43,7 @@ namespace CreditImpot.MVC.Controllers
         // POST: DemandeCreditController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Utilisateur,Gestionnaire,Administrateur")]
+        [Authorize(Roles = "Gestionnaire,Administrateur")]
         public async Task<ActionResult> Create(DemandeCredit demandeCredit)
         {
             if (ModelState.IsValid)
