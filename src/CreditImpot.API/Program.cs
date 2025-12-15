@@ -16,6 +16,8 @@ builder.Services.AddDbContext<CreditImpotContext>(options =>
 
 builder.Services.AddScoped<ICalculCredit, CalculCredit>();
 
+builder.Services.AddDataProtection();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
