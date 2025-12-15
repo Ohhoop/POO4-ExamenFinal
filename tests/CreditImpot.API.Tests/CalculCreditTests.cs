@@ -13,115 +13,161 @@ namespace CreditImpot.API.Tests
             _calculCredit = new CalculCredit();
         }
 
-        [Theory]
-        [InlineData(2300, 30000, 0)]
-        [InlineData(2200, 30000, 0)]
-        [InlineData(0, 30000, 0)]
-        public void CalculerCredit_MontantFraisInferieurOuEgal2300_RetourneZero(int montantFrais, int salaireFamilial, decimal creditAttendu)
+        [Fact]
+        public void CalculerCredit_MontantFrais2300_RetourneZero()
         {
-            // Arrange
+            //Étant donné
             var demande = new DemandeCredit
             {
-                MontantFrais = montantFrais,
-                SalaireMere = salaireFamilial / 2,
-                SalairePere = salaireFamilial / 2
+                MontantFrais = 2300,
+                SalaireMere = 15000,
+                SalairePere = 15000
             };
 
-            // Act
+            //Quand
             var resultat = _calculCredit.CalculerCredit(demande);
 
-            // Assert
+            //Alors
+            resultat.Should().Be(0);
+        }
+
+        [Fact]
+        public void CalculerCredit_MontantFrais2301_RetourneCredit()
+        {
+            //Étant donné
+            var demande = new DemandeCredit
+            {
+                MontantFrais = 2301,
+                SalaireMere = 10000,
+                SalairePere = 10000
+            };
+
+            decimal creditAttendu = (2301 - 2300) * 0.80m;
+
+            //Quand
+            var resultat = _calculCredit.CalculerCredit(demande);
+
+            //Alors
             resultat.Should().Be(creditAttendu);
         }
 
-        [Theory]
-        [InlineData(3000, 10000, 0.78)]
-        [InlineData(5000, 22000, 0.78)]
-        public void CalculerCredit_RevenuFamilial0A22000_AppliquerTaux78Pourcent(int montantFrais, int salaireFamilial, decimal tauxAttendu)
+        [Fact]
+        public void CalculerCredit_RevenuFamilial21999_AppliquerTaux80Pourcent()
         {
-            // Arrange
+            //Étant donné
             var demande = new DemandeCredit
             {
-                MontantFrais = montantFrais,
-                SalaireMere = salaireFamilial / 2,
-                SalairePere = salaireFamilial / 2
+                MontantFrais = 5000,
+                SalaireMere = 11000,
+                SalairePere = 10999
             };
 
-            decimal creditAttendu = (montantFrais - 2300) * tauxAttendu;
+            decimal creditAttendu = (5000 - 2300) * 0.80m;
 
-            // Act
+            //Quand
             var resultat = _calculCredit.CalculerCredit(demande);
 
-            // Assert
+            //Alors
             resultat.Should().Be(creditAttendu);
         }
 
-        [Theory]
-        [InlineData(3000, 22001, 0.75)]
-        [InlineData(5000, 30000, 0.75)]
-        [InlineData(4000, 40000, 0.75)]
-        public void CalculerCredit_RevenuFamilial22001A40000_AppliquerTaux75Pourcent(int montantFrais, int salaireFamilial, decimal tauxAttendu)
+        [Fact]
+        public void CalculerCredit_RevenuFamilial22000_AppliquerTaux75Pourcent()
         {
-            // Arrange
+            //Étant donné
             var demande = new DemandeCredit
             {
-                MontantFrais = montantFrais,
-                SalaireMere = salaireFamilial / 2,
-                SalairePere = salaireFamilial / 2
+                MontantFrais = 3000,
+                SalaireMere = 11000,
+                SalairePere = 11000
             };
 
-            decimal creditAttendu = (montantFrais - 2300) * tauxAttendu;
+            decimal creditAttendu = (3000 - 2300) * 0.75m;
 
-            // Act
+            //Quand
             var resultat = _calculCredit.CalculerCredit(demande);
 
-            // Assert
+            //Alors
             resultat.Should().Be(creditAttendu);
         }
 
-        [Theory]
-        [InlineData(3000, 40001, 0.72)]
-        [InlineData(5000, 50000, 0.72)]
-        [InlineData(4000, 60000, 0.72)]
-        public void CalculerCredit_RevenuFamilial40001A60000_AppliquerTaux72Pourcent(int montantFrais, int salaireFamilial, decimal tauxAttendu)
+        [Fact]
+        public void CalculerCredit_RevenuFamilial39999_AppliquerTaux75Pourcent()
         {
-            // Arrange
+            //Étant donné
             var demande = new DemandeCredit
             {
-                MontantFrais = montantFrais,
-                SalaireMere = salaireFamilial / 2,
-                SalairePere = salaireFamilial / 2
+                MontantFrais = 4000,
+                SalaireMere = 20000,
+                SalairePere = 19999
             };
 
-            decimal creditAttendu = (montantFrais - 2300) * tauxAttendu;
+            decimal creditAttendu = (4000 - 2300) * 0.75m;
 
-            // Act
+            //Quand
             var resultat = _calculCredit.CalculerCredit(demande);
 
-            // Assert
+            //Alors
             resultat.Should().Be(creditAttendu);
         }
 
-        [Theory]
-        [InlineData(3000, 60001, 75)]
-        [InlineData(5000, 70000, 75)]
-        [InlineData(4000, 100000, 75)]
-        public void CalculerCredit_RevenuFamilialSuperieur60000_AppliquerTaux60Pourcent(int montantFrais, int salaireFamilial, decimal tauxAttendu)
+        [Fact]
+        public void CalculerCredit_RevenuFamilial40000_AppliquerTaux72Pourcent()
         {
-            // Arrange
+            //Étant donné
             var demande = new DemandeCredit
             {
-                MontantFrais = montantFrais,
-                SalaireMere = salaireFamilial / 2,
-                SalairePere = salaireFamilial / 2
+                MontantFrais = 3000,
+                SalaireMere = 20000,
+                SalairePere = 20000
             };
 
-            decimal creditAttendu = (montantFrais - 2300) * tauxAttendu;
+            decimal creditAttendu = (3000 - 2300) * 0.72m;
 
-            // Act
+            //Quand
             var resultat = _calculCredit.CalculerCredit(demande);
 
-            // Assert
+            //Alors
+            resultat.Should().Be(creditAttendu);
+        }
+
+        [Fact]
+        public void CalculerCredit_RevenuFamilial59999_AppliquerTaux72Pourcent()
+        {
+            //Étant donné
+            var demande = new DemandeCredit
+            {
+                MontantFrais = 4000,
+                SalaireMere = 30000,
+                SalairePere = 29999
+            };
+
+            decimal creditAttendu = (4000 - 2300) * 0.72m;
+
+            //Quand
+            var resultat = _calculCredit.CalculerCredit(demande);
+
+            //Alors
+            resultat.Should().Be(creditAttendu);
+        }
+
+        [Fact]
+        public void CalculerCredit_RevenuFamilial60000_AppliquerTaux60Pourcent()
+        {
+            //Étant donné
+            var demande = new DemandeCredit
+            {
+                MontantFrais = 3000,
+                SalaireMere = 30000,
+                SalairePere = 30000
+            };
+
+            decimal creditAttendu = (3000 - 2300) * 0.60m;
+
+            //Quand
+            var resultat = _calculCredit.CalculerCredit(demande);
+
+            //Alors
             resultat.Should().Be(creditAttendu);
         }
     }

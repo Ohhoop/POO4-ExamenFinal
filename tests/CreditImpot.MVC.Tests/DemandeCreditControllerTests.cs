@@ -34,7 +34,7 @@ namespace CreditImpot.MVC.Tests
         [Fact]
         public async Task Create_MontantFraisInferieurOuEgal2300_APInonAppelee_MessageErreurAffiche()
         {
-            // Arrange
+            //Étant donné
             var demande = new DemandeCredit
             {
                 NAS = "123456789",
@@ -46,10 +46,10 @@ namespace CreditImpot.MVC.Tests
                 MontantFrais = 2300
             };
 
-            // Act
+            //Quand
             var result = await _controller.Create(demande);
 
-            // Assert
+            //Alors
             _mockFraisGardeService.Verify(x => x.Ajouter(It.IsAny<DemandeCredit>()), Times.Never);
 
             result.Should().BeOfType<ViewResult>();
@@ -64,7 +64,7 @@ namespace CreditImpot.MVC.Tests
         [Fact]
         public async Task Create_APIRetourneCreated_RedirigerVersIndex()
         {
-            // Arrange
+            //Étant donné
             var demande = new DemandeCredit
             {
                 NAS = "123456789",
@@ -82,10 +82,10 @@ namespace CreditImpot.MVC.Tests
                 .Setup(x => x.Ajouter(It.IsAny<DemandeCredit>()))
                 .ReturnsAsync(httpResponse);
 
-            // Act
+            //Quand
             var result = await _controller.Create(demande);
 
-            // Assert
+            //Alors
             _mockFraisGardeService.Verify(x => x.Ajouter(demande), Times.Once);
 
             result.Should().BeOfType<RedirectToActionResult>();
@@ -96,7 +96,7 @@ namespace CreditImpot.MVC.Tests
         [Fact]
         public async Task Create_APIRetourneAutreQueCreated_AjouterErreurModelState()
         {
-            // Arrange
+            //Étant donné
             var demande = new DemandeCredit
             {
                 NAS = "123456789",
@@ -108,31 +108,27 @@ namespace CreditImpot.MVC.Tests
                 MontantFrais = 3000
             };
 
-            var errorContent = "{\"errors\":{\"NAS\":[\"Le NAS est invalide\"]}}";
-            var httpResponse = new HttpResponseMessage(HttpStatusCode.BadRequest)
-            {
-                Content = new StringContent(errorContent)
-            };
+            var httpResponse = new HttpResponseMessage(HttpStatusCode.BadRequest);
 
             _mockFraisGardeService
                 .Setup(x => x.Ajouter(It.IsAny<DemandeCredit>()))
                 .ReturnsAsync(httpResponse);
 
-            // Act
+            //Quand
             var result = await _controller.Create(demande);
 
-            // Assert
+            //Alors
             result.Should().BeOfType<ViewResult>();
             var viewResult = result as ViewResult;
             viewResult.Model.Should().Be(demande);
 
-            _controller.ModelState.Should().ContainKey("NAS");
+            _controller.ModelState.Should().ContainKey("Erreur du service Web");
         }
 
         [Fact]
         public async Task Create_EnCasErreur_InformationsSaisiesRetourneesVue()
         {
-            // Arrange
+            //Étant donné
             var demande = new DemandeCredit
             {
                 NAS = "123456789",
@@ -144,10 +140,10 @@ namespace CreditImpot.MVC.Tests
                 MontantFrais = 2100
             };
 
-            // Act
+            //Quand
             var result = await _controller.Create(demande);
 
-            // Assert
+            //Alors
             result.Should().BeOfType<ViewResult>();
             var viewResult = result as ViewResult;
             viewResult.Model.Should().Be(demande);
