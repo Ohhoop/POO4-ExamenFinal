@@ -1,5 +1,6 @@
 using CreditImpot.MVC.Interface;
 using CreditImpot.MVC.Services;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CreditImpot.MVC.Data;

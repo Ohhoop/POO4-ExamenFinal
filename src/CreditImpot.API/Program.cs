@@ -1,6 +1,7 @@
 using CreditImpot.API.Data;
 using CreditImpot.API.Interfaces;
 using CreditImpot.API.Services;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
