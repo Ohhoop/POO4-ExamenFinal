@@ -12,12 +12,11 @@ namespace CreditImpot.MVC.Services
         private readonly ILogger<FraisGardeServiceProxy> _logger;
         private readonly IDataProtector _dataProtector;
         private const string _ApiURL = "api/FraisGarde/";
-        private const string NAS_PROTECTION_PURPOSE = "NASProtection";
         public FraisGardeServiceProxy(HttpClient httpClient, ILogger<FraisGardeServiceProxy> logger, IDataProtectionProvider dataProtectionProvider)
         {
             _httpClient = httpClient;
             _logger = logger;
-            _dataProtector = dataProtectionProvider.CreateProtector(NAS_PROTECTION_PURPOSE);
+            _dataProtector = dataProtectionProvider.CreateProtector("NASProtection");
         }
         public async Task<HttpResponseMessage> Ajouter(DemandeCredit demandeCredit)
         {

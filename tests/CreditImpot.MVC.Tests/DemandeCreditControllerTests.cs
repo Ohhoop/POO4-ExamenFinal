@@ -15,7 +15,6 @@ namespace CreditImpot.MVC.Tests
         private readonly Mock<IDataProtectionProvider> _mockDataProtectionProvider;
         private readonly Mock<IDataProtector> _mockDataProtector;
         private readonly DemandeCreditController _controller;
-        private const string NAS_PROTECTION_PURPOSE = "NASProtection";
 
         public DemandeCreditControllerTests()
         {
@@ -24,7 +23,7 @@ namespace CreditImpot.MVC.Tests
             _mockDataProtector = new Mock<IDataProtector>();
 
             _mockDataProtectionProvider
-                .Setup(x => x.CreateProtector(NAS_PROTECTION_PURPOSE))
+                .Setup(x => x.CreateProtector("NASProtection"))
                 .Returns(_mockDataProtector.Object);
 
             _controller = new DemandeCreditController(
