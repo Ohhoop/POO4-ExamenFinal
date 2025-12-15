@@ -3,6 +3,7 @@ using CreditImpot.API.Interfaces;
 using CreditImpot.API.Data;
 using CreditImpot.API.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.DataProtection;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,25 +16,34 @@ namespace CreditImpot.API.Controllers
     {
         private readonly CreditImpotContext _context;
         private readonly ICalculCredit _calculCredit;
+        private readonly IDataProtector _dataProtector;
 
-        public FraisGardeController(CreditImpotContext context, ICalculCredit calculCredit)
+        public FraisGardeController(CreditImpotContext context, ICalculCredit calculCredit, IDataProtectionProvider dataProtectionProvider)
         {
             _context = context;
             _calculCredit = calculCredit;
+            _dataProtector = dataProtectionProvider.CreateProtector("NASProtection");
         }
 
         // GET: api/<FraisGardeController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DemandeCreditFraisGarde>>> Get(string? NAS)
         {
+            List<DemandeCreditFraisGarde> demandes;
+
             if (NAS == null)
             {
-                return Ok(await _context.DemandeCreditFraisGardes.ToListAsync());
+                demandes = await _context.DemandeCreditFraisGardes.ToListAsync();
             }
             else
             {
-                return Ok(await _context.DemandeCreditFraisGardes.Where(d => d.NAS == NAS).ToListAsync());
+                string nasDechiffre = _dataProtector.Unprotect(NAS);
+                demandes = await _context.DemandeCreditFraisGardes.Where(d => d.NAS == nasDechiffre).ToListAsync();
             }
+
+            demandes.ForEach(d => d.NAS = _dataProtector.Protect(d.NAS));
+
+            return Ok(demandes);
         }
 
 

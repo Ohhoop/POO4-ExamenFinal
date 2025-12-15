@@ -1,29 +1,40 @@
 ﻿using CreditImpot.MVC.Interface;
 using CreditImpot.MVC.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace CreditImpot.MVC.Controllers
 {
+    [Authorize]
     public class DemandeCreditController : Controller
     {
         private readonly IFraisGardeService _DemandeCreditProxy;
+        private readonly IDataProtector _dataProtector;
 
-        public DemandeCreditController(IFraisGardeService demandeCreditProxy)
+        public DemandeCreditController(IFraisGardeService demandeCreditProxy, IDataProtectionProvider dataProtectionProvider)
         {
             _DemandeCreditProxy = demandeCreditProxy;
+            _dataProtector = dataProtectionProvider.CreateProtector("NASProtection");
         }
 
 
         // GET: DemandeCreditController
+        [Authorize(Roles = "Utilisateur,Gestionnaire,Administrateur")]
         public async Task<ActionResult> Index(string? NAS)
         {
-            return View(await _DemandeCreditProxy.ObtenirSelonNAs(NAS));
+            var demandes = (await _DemandeCreditProxy.ObtenirSelonNAs(NAS)).ToList();
+
+            demandes.ForEach(d => d.NAS = _dataProtector.Unprotect(d.NAS));
+
+            return View(demandes);
         }
 
         // Get: DemandeCreditController/Create
         [HttpGet]
+        [Authorize(Roles = "Utilisateur,Gestionnaire,Administrateur")]
         public ActionResult Create()
         {
             return View();
@@ -32,6 +43,7 @@ namespace CreditImpot.MVC.Controllers
         // POST: DemandeCreditController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Utilisateur,Gestionnaire,Administrateur")]
         public async Task<ActionResult> Create(DemandeCredit demandeCredit)
         {
             if (ModelState.IsValid)

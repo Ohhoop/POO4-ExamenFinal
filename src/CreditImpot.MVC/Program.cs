@@ -10,7 +10,15 @@ var connectionString = builder.Configuration.GetConnectionString("CreditImpotMVC
 builder.Services.AddDbContext<CreditImpotMVCContext>(options =>
     options.UseSqlite(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredUniqueChars = 7;
+})
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CreditImpotMVCContext>();
 
