@@ -16,7 +16,9 @@ builder.Services.AddDbContext<CreditImpotContext>(options =>
 
 builder.Services.AddScoped<ICalculCredit, CalculCredit>();
 
-builder.Services.AddDataProtection();
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "DataProtection-Keys")))
+    .SetApplicationName("CreditImpot");
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

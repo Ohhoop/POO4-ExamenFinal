@@ -10,6 +10,10 @@ var connectionString = builder.Configuration.GetConnectionString("CreditImpotMVC
 builder.Services.AddDbContext<CreditImpotMVCContext>(options =>
     options.UseSqlite(connectionString));
 
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "DataProtection-Keys")))
+    .SetApplicationName("CreditImpot");
+
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;

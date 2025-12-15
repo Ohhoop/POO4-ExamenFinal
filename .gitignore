@@ -350,3 +350,6 @@ healthchecksdb
 
 # Exception: inclure la base de donnees de l'application MVC
 !src/CreditImpot.MVC/CreditImpot.MVC.db
+
+# DataProtection keys
+DataProtection-Keys/
