@@ -7,6 +7,10 @@ using CreditImpot.MVC.Data;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("CreditImpotMVCContextConnection") ?? throw new InvalidOperationException("Connection string 'CreditImpotMVCContextConnection' not found.");
 
+// Construire le chemin absolu vers la base de donnees
+var dbPath = Path.Combine(builder.Environment.ContentRootPath, "CreditImpot.MVC.db");
+connectionString = $"Data Source={dbPath}";
+
 builder.Services.AddDbContext<CreditImpotMVCContext>(options =>
     options.UseSqlite(connectionString));
 
